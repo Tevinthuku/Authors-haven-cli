@@ -1,12 +1,7 @@
-// const cli = require("./cli");
-
-// cli.init()
-let path = require("path");
-let exec = require("child_process").exec;
-
-function cli(args, cwd) {
+const path = require("path");
+const exec = require("child_process").exec;
+function cli(args) {
   return new Promise(resolve => {
-    console.log(path.join(__dirname, "./cli.js"));
     exec(
       `node ${path.join(__dirname, "./cli.js")} ${args.join(" ")}`,
       (error, stdout, stderr) => {
@@ -21,4 +16,6 @@ function cli(args, cwd) {
   });
 }
 
-cli(["hello world"], "hel").then(console.log);
+module.exports = {
+  cli
+};
