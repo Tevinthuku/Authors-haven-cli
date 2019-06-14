@@ -1,8 +1,10 @@
 {
   "scripts": {
-    "test": "jest"
+    "test": "jest",
+    "test:coverage": "jest --coverage"
   },
   "devDependencies": {
+    "coveralls": "^3.0.4",
     "jest": "^24.8.0"
   },
   "dependencies": {
