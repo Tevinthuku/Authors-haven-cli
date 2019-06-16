@@ -17,4 +17,17 @@ lib.create = function({ dir, file, data, callback, testing }) {
   });
 };
 
+lib.readFile = function({ dir, file, callback, testing }) {
+  let destination = testing ? lib.testDir : lib.baseDir + dir + "/";
+  let fullpath = destination + file + ".json";
+
+  fs.readFile(fullpath, "utf8", (err, data) => {
+    if (err) {
+      callback(`Cannot read file ${file}.json, it does not exist.`);
+    } else {
+      callback(JSON.parse(data));
+    }
+  });
+};
+
 module.exports = lib;
