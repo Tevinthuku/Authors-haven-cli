@@ -16,6 +16,7 @@ const getSingleArticle = async args => {
     .get(`http://ah-premier-staging.herokuapp.com/api/articles/${args[2]}`)
     .then(data => {
       console.log(data.data);
+      return data.data;
     })
     .catch(err => {
       console.log("❗❗ Something went wrong fetching the article.");
