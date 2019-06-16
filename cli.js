@@ -1,5 +1,9 @@
 const io = require("./src/io");
-const { getAllArticles, getSingleArticle } = require("./src/fetch");
+const {
+  getAllArticles,
+  getSingleArticle,
+  getFilteredArticles
+} = require("./src/fetch");
 const { fetchandsave } = require("./src");
 
 const saveToFileCallback = data => {
@@ -26,6 +30,16 @@ const stats = (function(args) {
         file: args[2],
         callback: console.log
       });
+      return;
+    case /^ah search/.test(args_string):
+      console.log("⏱️  ⏱️ Kindly wait as we get your desired article.");
+      return getFilteredArticles(args);
+    case /^ah help$/.test(args_string):
+      console.log(
+        `ℹ        Checkout
+        https://github.com/Tevinthuku/Authors-haven-cli#commands-available 
+        to see what commands are available`
+      );
       return;
     case /ah view/.test(args_string):
       console.log("⏱️  ⏱️ Kindly wait as we get your desired article.");

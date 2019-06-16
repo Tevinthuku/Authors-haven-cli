@@ -1,6 +1,10 @@
 const axios = require("axios");
 
-const { getAllArticles, getSingleArticle } = require("../src/fetch");
+const {
+  getAllArticles,
+  getSingleArticle,
+  getFilteredArticles
+} = require("../src/fetch");
 
 jest.spyOn(axios, "get");
 global.console = { log: jest.fn() };
@@ -63,4 +67,49 @@ test("should raise an error when getting article is unsuccessful", () => {
       "❗❗ Something went wrong fetching the article."
     );
   });
+});
+
+test("should retrieve list of articles upon filtering", () => {
+  axios.get.mockImplementation(() =>
+    Promise.resolve({
+      data: {
+        data: {
+          count: 0,
+          next: null,
+          prev: null,
+          results: []
+        }
+      }
+    })
+  );
+  getFilteredArticles(["ah", "search", "title=tev", "author=benson"]).then(
+    data => {
+      expect(console.log).toBeCalled();
+      expect(console.log).toHaveBeenCalledWith({
+        data: {
+          count: 0,
+          next: null,
+          prev: null,
+          results: []
+        }
+      });
+    }
+  );
+});
+
+test("should return an error when there is an issue retrieving the filtered articles", () => {
+  axios.get.mockImplementationOnce(() =>
+    Promise.reject({
+      error: {}
+    })
+  );
+
+  getFilteredArticles(["ah", "search", "title=tev", "author=benson"]).then(
+    data => {
+      expect(console.log).toBeCalled();
+      expect(console.log).toHaveBeenCalledWith(
+        "❗❗ Something went wrong fetching the filtered articles."
+      );
+    }
+  );
 });
