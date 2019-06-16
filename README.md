@@ -7,3 +7,5 @@ A CLI app that interacts with Author's Haven
 
 1. View all articles `node cli.js ah list`
 2. View specific article `node cli.js ah view <article-slug>`
+3. Save specific article to file `node cli.js ah view <article-slug> --save`
+4. Retrieve specific saved article from file `node cli.js ah view <article-slug> --offline`

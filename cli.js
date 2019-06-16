@@ -1,4 +1,4 @@
-const io = require("./src/save");
+const io = require("./src/io");
 const { getAllArticles, getSingleArticle } = require("./src/fetch");
 const { fetchandsave } = require("./src");
 
@@ -19,6 +19,13 @@ const stats = (function(args) {
       return getAllArticles();
     case /^ah view.*--save$/.test(args_string):
       fetchandsave(args, saveToFileCallback);
+      return;
+    case /^ah view.*--offline$/.test(args_string):
+      io.readFile({
+        dir: "articles",
+        file: args[2],
+        callback: console.log
+      });
       return;
     case /ah view/.test(args_string):
       console.log("⏱️  ⏱️ Kindly wait as we get your desired article.");
