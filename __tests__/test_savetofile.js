@@ -66,27 +66,4 @@ describe("Testing IO", () => {
       testing: true
     });
   });
-
-  test("should not create file if it already exists", done => {
-    const failureCallback = data => {
-      expect(data).toBe(
-        "Error creating  file article.json, it may already exist."
-      );
-      done();
-    };
-
-    fileops.create({
-      file: "article",
-      data: { article: {} },
-      callback: console.log,
-      testing: true
-    });
-
-    fileops.create({
-      file: "article",
-      data: { article: {} },
-      callback: failureCallback,
-      testing: true
-    });
-  });
 });
