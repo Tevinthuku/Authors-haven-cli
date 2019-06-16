@@ -9,22 +9,11 @@ lib.testDir = path.join(__dirname, "../testdata/");
 lib.create = function({ dir, file, data, callback, testing }) {
   // create a new file and append data to it.
   const destination = testing ? lib.testDir : lib.baseDir + dir + "/";
-  fs.open(destination + file + ".json", "wx", function(err, fileDescriptor) {
-    if (!err & fileDescriptor) {
-      // write data in string version.
-      var strData = JSON.stringify(data);
-      fs.writeFile(fileDescriptor, strData, function(err) {
-        if (!err) {
-          fs.close(fileDescriptor, function(err) {
-            if (!err) {
-              callback("🙌 success");
-            }
-          });
-        }
-      });
-    } else {
-      callback(`Error creating  file ${file}.json, it may already exist.`);
-    }
+  let fullpath = destination + file + ".json";
+  fs.writeFile(fullpath, JSON.stringify(data), err => {
+    return err
+      ? callback(`Error writing to file ${file}.json`)
+      : callback("🙌 success");
   });
 };
 
