@@ -19,7 +19,9 @@ const getSingleArticle = async args => {
       return data.data;
     })
     .catch(err => {
-      console.log("❗❗ Something went wrong fetching the article.");
+      const error = "❗❗ Something went wrong fetching the article.";
+      console.log(error);
+      return null;
     });
 };
 
@@ -31,7 +33,8 @@ const getFilteredArticles = async args => {
       console.log(data.data);
     })
     .catch(err => {
-      console.log("❗❗ Something went wrong fetching the filtered articles.");
+      const error = "❗❗ Something went wrong fetching the filtered articles.";
+      console.log(error);
     });
 };
 
