@@ -1,5 +1,10 @@
 [![Build Status](https://travis-ci.org/Tevinthuku/Authors-haven-cli.svg?branch=develop)](https://travis-ci.org/Tevinthuku/Authors-haven-cli)
 [![Coverage Status](https://coveralls.io/repos/github/Tevinthuku/Authors-haven-cli/badge.svg?branch=develop)](https://coveralls.io/github/Tevinthuku/Authors-haven-cli?branch=develop)
+
+[![forthebadge](https://forthebadge.com/images/badges/built-with-love.svg)](https://forthebadge.com)
+[![forthebadge](https://forthebadge.com/images/badges/built-by-hipsters.svg)](https://forthebadge.com)
+[![forthebadge](https://forthebadge.com/images/badges/made-with-javascript.svg)](https://forthebadge.com)
+
 ## AH CLI
 A CLI app that interacts with Author's Haven
 
