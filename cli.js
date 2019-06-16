@@ -1,3 +1,4 @@
+const fs = require("fs");
 const io = require("./src/io");
 const {
   getAllArticles,
@@ -7,12 +8,14 @@ const {
 const { fetchandsave } = require("./src");
 
 const saveToFileCallback = data => {
-  io.create({
-    dir: "articles",
-    file: data.article.slug,
-    data,
-    callback: console.log
-  });
+  return data
+    ? io.create({
+        dir: "articles",
+        file: data.article.slug,
+        data,
+        callback: console.log
+      })
+    : {};
 };
 
 const stats = (function(args) {
@@ -22,6 +25,9 @@ const stats = (function(args) {
       console.log("⏱️  ⏱️  Kindly wait as I fetch the articles available.");
       return getAllArticles();
     case /^ah view.*--save$/.test(args_string):
+      fs.mkdir(`${io.baseDir}articles`, { recursive: true }, err => {
+        if (err) console.log(err);
+      });
       fetchandsave(args, saveToFileCallback);
       return;
     case /^ah view.*--offline$/.test(args_string):
