@@ -1,9 +1,16 @@
 language: node_js
 node_js:
   - "stable"
+services:
+  - mongodb
 cache:
   directories:
     - node_modules
+before_script:
+  - sleep 15
+  - mongo mydb_test --eval 'db.createUser({user:"travis",pwd:"test",roles:["readWrite"]});'
+env:
+  - MONGO_URI="mongodb://localhost/authorshavencli_test" MONGO_TEST_URI="mongodb://localhost/authorshavencli_test"
 script:
   - yarn test:coverage
 
@@ -11,4 +18,6 @@ jobs:
   include:
     - stage: Produce Coverage
       node_js: node
-      script: jest --coverage --coverageReporters=text-lcov | coveralls
+      script:
+        jest --coverage --coverageReporters=text-lcov | coveralls
+        # - MONGO_URI="mongodb://travis:test/27017/mydb_test" MONGO_TEST_URI="mongodb://travis:test/27017/mydb_test"
