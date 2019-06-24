@@ -32,5 +32,8 @@ A CLI app that interacts with Author's Haven
 
     `node cli.js ah search author=tevin tag=python title=flutter page_size=40`
 
-6. To Get help with commands `node cli.js ah help`
+6. Save to MongoDB database `node cli.js ah db <article-slug> --save`
+7. To read from MongoDB database `node cli.js ah db <article-slug> --read`
+
+8. To Get help with commands `node cli.js ah help`
    
