@@ -1,5 +1,5 @@
-const fs = require("fs");
-const path = require("path");
+import fs from "fs";
+import path from "path";
 
 const lib = {};
 
@@ -30,4 +30,4 @@ lib.readFile = function({ dir, file, callback, testing }) {
   });
 };
 
-module.exports = lib;
+export default lib;

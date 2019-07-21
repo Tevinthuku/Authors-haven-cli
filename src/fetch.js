@@ -1,6 +1,6 @@
 const axios = require("axios");
 
-const getAllArticles = () => {
+export const getAllArticles = () => {
   return axios
     .get("https://ah-premier-staging.herokuapp.com/api/articles/")
     .then(data => {
@@ -11,7 +11,7 @@ const getAllArticles = () => {
     });
 };
 
-const getSingleArticle = async args => {
+export const getSingleArticle = async args => {
   return axios
     .get(`http://ah-premier-staging.herokuapp.com/api/articles/${args[2]}`)
     .then(data => {
@@ -25,7 +25,7 @@ const getSingleArticle = async args => {
     });
 };
 
-const getFilteredArticles = async args => {
+export const getFilteredArticles = async args => {
   const queryparams = args.slice(2).join("&");
   return axios
     .get(`https://ah-premier-staging.herokuapp.com/api/articles?${queryparams}`)
@@ -36,10 +36,4 @@ const getFilteredArticles = async args => {
       const error = "❗❗ Something went wrong fetching the filtered articles.";
       console.log(error);
     });
-};
-
-module.exports = {
-  getAllArticles,
-  getSingleArticle,
-  getFilteredArticles
 };

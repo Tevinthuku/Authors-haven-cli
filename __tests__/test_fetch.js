@@ -1,10 +1,10 @@
-const axios = require("axios");
+import axios from "axios";
 
-const {
+import {
   getAllArticles,
   getSingleArticle,
   getFilteredArticles
-} = require("../src/fetch");
+} from "../src/fetch";
 
 jest.spyOn(axios, "get");
 global.console = { log: jest.fn() };

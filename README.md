@@ -6,16 +6,17 @@
 [![forthebadge](https://forthebadge.com/images/badges/made-with-javascript.svg)](https://forthebadge.com)
 
 ## AH CLI
+
 A CLI app that interacts with Author's Haven
 
 ## Commands available
 
-1. View all articles `node cli.js ah list`
-2. View specific article `node cli.js ah view <article-slug>`
-3. Save specific article to file `node cli.js ah view <article-slug> --save`
-4. Retrieve specific saved article from file `node cli.js ah view <article-slug> --offline`
+1. View all articles `yarn ah list`
+2. View specific article `yarn ah view <article-slug>`
+3. Save specific article to file `yarn ah view <article-slug> --save`
+4. Retrieve specific saved article from file `yarn ah view <article-slug> --offline`
 5. Filter article with various flags
-`node cli.js ah search <flag_name>=<flag_value> <2nd_flag_name=<2nd_flag_value>`
+   `yarn ah search <flag_name>=<flag_value> <2nd_flag_name=<2nd_flag_value>`
 
 
     ### Flags available:
@@ -30,10 +31,9 @@ A CLI app that interacts with Author's Haven
 
     Flags can be composed together
 
-    `node cli.js ah search author=tevin tag=python title=flutter page_size=40`
+    `yarn ah search author=tevin tag=python title=flutter page_size=40`
 
-6. Save to MongoDB database `node cli.js ah db <article-slug> --save`
-7. To read from MongoDB database `node cli.js ah db <article-slug> --read`
+6. Save to MongoDB database `yarn ah db <article-slug> --save`
+7. To read from MongoDB database `yarn ah db <article-slug> --read`
 
-8. To Get help with commands `node cli.js ah help`
-   
+8. To Get help with commands `yarn ah help`

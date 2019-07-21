@@ -1,5 +1,5 @@
-const fs = require("fs");
-const fileops = require("../src/io");
+import fs from "fs";
+import fileops from "../src/io";
 
 function createTestDir() {
   // create test directory if it does not exist
