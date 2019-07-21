@@ -6,7 +6,7 @@ const url = process.env.NODE_ENV
   ? process.env.MONGO_TEST_URI
   : process.env.MONGO_URI;
 
-const saveArticleToDb = (article, callback) => {
+export const saveArticleToDb = (article, callback) => {
   return ({ client, db }) => {
     db.collection("articles")
       .insertOne({ ...article, _id: article.slug })
@@ -19,7 +19,7 @@ const saveArticleToDb = (article, callback) => {
   };
 };
 
-const readArticleFromDb = (slug, callback) => {
+export const readArticleFromDb = (slug, callback) => {
   return ({ client, db }) => {
     const articles = db.collection("articles");
     articles.findOne({ _id: slug }).then(result => {
@@ -30,17 +30,10 @@ const readArticleFromDb = (slug, callback) => {
   };
 };
 
-const mongoconnectionhoc = fn => {
+export const mongoconnectionhoc = fn => {
   MongoClient.connect(url, { useNewUrlParser: true }, function(err, client) {
     assert.equal(null, err);
     const db = client.db();
     fn({ client, db });
   });
-};
-
-// mongoconnectionhoc(saveArticleToDb({}));
-module.exports = {
-  saveArticleToDb,
-  readArticleFromDb,
-  mongoconnectionhoc
 };

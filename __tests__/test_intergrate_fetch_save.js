@@ -1,6 +1,5 @@
-const { fetchandsave } = require("../src");
-
-const axios = require("axios");
+import axios from "axios";
+import { fetchandsave } from "../src";
 
 jest.spyOn(axios, "get");
 

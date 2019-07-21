@@ -1,5 +1,5 @@
-const { createTestDir, removeTestDataDir } = require("../testutils/utils");
-const io = require("../src/io");
+import { createTestDir, removeTestDataDir } from "../testutils/utils";
+import io from "../src/io";
 
 describe("Test readFile", () => {
   beforeEach(async done => {

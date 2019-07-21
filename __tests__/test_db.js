@@ -1,11 +1,13 @@
-const { MongoClient } = require("mongodb");
-require("dotenv").config();
+import { MongoClient } from "mongodb";
+import dotenv from "dotenv";
 
-const {
+dotenv.config();
+
+import {
   saveArticleToDb,
   readArticleFromDb,
   mongoconnectionhoc
-} = require("../src/db");
+} from "../src/db";
 
 describe("insert", () => {
   let connection;

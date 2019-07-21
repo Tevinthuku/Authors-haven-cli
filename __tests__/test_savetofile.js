@@ -1,9 +1,9 @@
-const fs = require("fs");
-const path = require("path");
+import fs from "fs";
+import path from "path";
 
-const fileops = require("../src/io");
+import fileops from "../src/io";
 
-const { removeTestDataDir, createTestDir } = require("../testutils/utils");
+import { removeTestDataDir, createTestDir } from "../testutils/utils";
 global.console = { log: jest.fn(), error: jest.fn() };
 
 describe("Testing IO", () => {
