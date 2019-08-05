@@ -1,8 +1,3 @@
-import { MongoClient } from "mongodb";
-import dotenv from "dotenv";
-
-dotenv.config();
-
 import {
   saveArticleToDb,
   readArticleFromDb,
@@ -10,34 +5,24 @@ import {
 } from "../src/db";
 
 describe("insert", () => {
-  let connection;
-  let db;
-
-  beforeAll(async () => {
-    connection = await MongoClient.connect(global.__MONGO_URI__, {
-      useNewUrlParser: true
-    });
-    db = await connection.db();
-  });
-
-  afterAll(async () => {
-    await connection.close();
-  });
-
   test("should return inner function with ({ db, client }) as params", async () => {
     const callback = jest.fn();
-    const articles = db.collection("articles");
     const article = { slug: "interesting-article", title: "none" };
+    const dbObject = {
+      collection: collectionname => ({
+        insertOne: documentObj =>
+          Promise.resolve({
+            message: "New message here"
+          })
+      })
+    };
+    const connectionobj = {};
     saveArticleToDb(article, callback)({
-      client: connection,
-      db: db
+      client: connectionobj,
+      db: dbObject
+    }).then(() => {
+      expect(callback).toBeCalled();
     });
-    const insertedArticle = await articles.findOne({
-      _id: "interesting-article"
-    });
-
-    expect(insertedArticle).toEqual({ ...article, _id: "interesting-article" });
-    expect(callback).toBeCalled();
   });
 
   test("should read article from db", done => {
@@ -46,14 +31,16 @@ describe("insert", () => {
       expect(result).toEqual({ ...article, _id: article.slug });
       done();
     };
-    db.collection("articles").insertOne(
-      { ...article, _id: article.slug },
-      function(err, r) {}
-    );
+
+    const documentObj = {
+      collection: collectionname => ({
+        findOne: param => Promise.resolve({ ...article, _id: article.slug })
+      })
+    };
 
     readArticleFromDb("interesting-article-2", callback)({
-      client: connection,
-      db: db
+      client: {},
+      db: documentObj
     });
   });
 
@@ -64,9 +51,14 @@ describe("insert", () => {
       done();
     };
 
+    const documentObj = {
+      collection: collectionname => ({
+        findOne: param => Promise.resolve(null)
+      })
+    };
     readArticleFromDb(slug, callback)({
-      client: connection,
-      db: db
+      client: {},
+      db: documentObj
     });
   });
 
@@ -75,17 +67,24 @@ describe("insert", () => {
       expect(result).toBe("⚠️  ⚠️  Cannot save article to db twice");
       done();
     };
-    const articles = db.collection("articles");
-
     const mockArticle = {
       _id: "some-article-id",
       slug: "some_article_id",
       name: "John"
     };
-    await articles.insertOne(mockArticle);
+
+    const dbObject = {
+      collection: collectionname => ({
+        insertOne: documentObj =>
+          Promise.reject({
+            message: "New message here"
+          })
+      })
+    };
+
     saveArticleToDb(mockArticle, callback)({
-      client: connection,
-      db: db
+      client: {},
+      db: dbObject
     });
   });
 
